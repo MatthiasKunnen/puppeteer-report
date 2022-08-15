@@ -49,8 +49,11 @@ async function pdfPage(page: Page, options?: PDFOptions): Promise<Uint8Array> {
     footerHeight
   );
   await page.evaluate(basePageEvalFunc, basePageEvalArg);
+  // await new Promise(resolve => setTimeout(resolve, 40000))
 
+  // const basePdfBuffer = await fs.promises.readFile('/tmp/without-headers.pdf');
   const basePdfBuffer = await page.pdf(pdfOptions);
+  // await fs.promises.writeFile('/tmp/without-headers.pdf', basePdfBuffer);
 
   const [doc, headerEvalFunc, headerEvalArg] = await core.getHeadersEvaluator(
     basePdfBuffer
@@ -58,6 +61,8 @@ async function pdfPage(page: Page, options?: PDFOptions): Promise<Uint8Array> {
   await page.evaluate(headerEvalFunc, headerEvalArg);
 
   const headerPdfBuffer = await page.pdf(pdfOptions);
+  // await fs.promises.writeFile('/tmp/with-headers.pdf', headerPdfBuffer);
+
 
   const result = await core.createReport(
     doc,
