@@ -10,6 +10,7 @@
   },
   "scripts": {
     "build": "tsc",
+    "build:watch": "tsc --watch",
     "build-bundle": "rollup -c",
     "example": "cd examples && npm update && node index",
     "test": "echo \"Error: no test specified\" && exit 1"
